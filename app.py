@@ -7,9 +7,7 @@ app = Flask(__name__)
 
 VERIFY_TOKEN = "EAAVZAimZBniQcBQTOmitZCAMXbSIA32oD5skAWjkgQNeZCZBZBDvyxMh7GkQBbPYe4qx2P432tZCYfuaQz8QtyZBKu53w0TXgg4I45KzOKNeaiv2inJqQc5F3J1o8GxtyO1ClBUSuFt82bwtxk8xDztvpJEam3k9ZCYG4dovo3qC12WZBrOiNp6o3YI1AqDFTvf1NeRCHU5ZBj38aZBCId4WdvriMTAFDgvsgyZANX4HKHWoXyUMR2KlROKZBpSStwxj2336IxXaDZB2LfvfRjRCNNqXMAz"
 
-sheets = SheetsService(
-    credenciais_path="credenciais.json", nome_planilha="FINANCAS_2026"
-)
+sheets = SheetsService(nome_planilha="FINANCAS_2026")
 
 
 @app.route("/webhook", methods=["GET", "POST"])
