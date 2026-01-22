@@ -11,7 +11,7 @@ SCOPES = [
 
 
 class SheetsService:
-    def __init__(self, credenciais_path: str, nome_planilha: str):
+    def __init__(self, nome_planilha: str):
         creds_json = os.getenv("GOOGLE_CREDENTIALS_JSON")
 
         if not creds_json:
