@@ -1,6 +1,7 @@
 from flask import Flask, request, jsonify
 from parser import parse_mensagem
 from sheets_service import SheetsService
+from whatsapp_service import enviar_mensagem_whatsapp
 
 
 app = Flask(__name__)
@@ -33,6 +34,7 @@ def webhook():
                 return jsonify({"status": "ok"}), 200
 
             msg = message[0]
+            numero = msg["from"]
 
             if msg["type"] != "text":
                 return jsonify({"status": "ok"}), 200
@@ -42,6 +44,11 @@ def webhook():
             try:
                 lancamento = parse_mensagem(texto)
                 sheets.inserir_lancamento(lancamento)
+
+                enviar_mensagem_whatsapp(
+                    numero,
+                    "Lançamento registrado com sucesso!"
+                )
 
                 print("Lançamento salvo:", lancamento)
 
