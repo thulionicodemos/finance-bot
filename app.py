@@ -1,4 +1,7 @@
 from flask import Flask, request, jsonify
+
+mensagens_processadas = set()
+
 from parser import parse_mensagem
 from sheets_service import SheetsService
 from whatsapp_service import enviar_mensagem_whatsapp
@@ -34,6 +37,14 @@ def webhook():
                 return jsonify({"status": "ok"}), 200
 
             msg = message[0]
+            
+            message_id = msg["id"]
+            
+            if message_id in mensagens_processadas:
+                print("Mensagem duplicada ignorada")
+                return jsonify({"status": "duplicado"}), 200
+            mensagens_processadas.add(message_id)
+
             numero = msg["from"]
 
             if msg["type"] != "text":
